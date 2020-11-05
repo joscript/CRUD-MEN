@@ -35,4 +35,13 @@ router.get('/:id', async(req, res) => {
     }
 })
 
+router.delete('/:id', async(req, res) => {
+    try {
+        const remove = await User.remove({_id: req.params.id});
+        res.status(200).json(remove);
+    } catch (error) {
+        res.status(500).json({message: error});
+    }
+})
+
 module.exports = router;
