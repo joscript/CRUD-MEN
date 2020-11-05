@@ -6,6 +6,7 @@ require('dotenv/config');
 const app = express();
 
 const userRoutes = require('./routes/users');
+app.use(express.json());
 app.use('/api/users', userRoutes);
 
 //connect to db
@@ -16,4 +17,4 @@ mongoose.connect(
 );
 
 
-app.listen(3000, () => console.log('Listening on port: 3000'))
+app.listen(3000, () => console.log('Listening on port: 3000'));
