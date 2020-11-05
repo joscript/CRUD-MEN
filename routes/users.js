@@ -3,19 +3,27 @@ const router = express.Router();
 const User = require('../models/User');
 
 
-router.get('/', (req, res) => {
-    res.send('OKINAYO');
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json({message: error});
+    }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName
     })
 
-    user.save()
-        .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json({message: err}))
+    try{
+        const saveUser = await user.save();
+        res.status(200).json(saveUser);
+    }catch(error){
+        res.status(500).json({message: error});
+    }
 }); 
 
 module.exports = router;
