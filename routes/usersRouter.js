@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    if(!req.body.firstName || !req.body.lastName) return res.status(422).json('First name and last name fields cant be empty!');
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName
@@ -45,6 +46,7 @@ router.delete('/:id', async(req, res) => {
 })
 
 router.patch('/:id', async(req, res) => {
+    if(!req.body.firstName || !req.body.lastName) return res.status(422).json('First name and last name fields cant be empty!');
     try {
         const updateUser = await User.updateOne(
             {
